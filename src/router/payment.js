@@ -1,5 +1,8 @@
 const { Router } = require("express");
 const mercadopago = require("../services/mercadoPago");
+require('dotenv').config()
+const { URL_BASE_LOCAL } = process.env;
+//const URL_BASE_MAIN = process.env.URL_BASE_MAIN;
 
 const router = Router();
 
@@ -13,9 +16,9 @@ router.post("/create-order", (req, res) => {
             }
         ],
         back_urls: {
-            "success": "http://localhost:8080/feedback",
-            "failure": "http://localhost:8080/feedback",
-            "pending": "http://localhost:8080/feedback"
+            "success": `${URL_BASE_LOCAL}feedback`,
+            "failure": `${URL_BASE_LOCAL}feedback`,
+            "pending": `${URL_BASE_LOCAL}feedback`
         },
         auto_return: "approved",
     };
