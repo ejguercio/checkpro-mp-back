@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require("cors")
 const morgan = require("morgan");
 const paymentRouter = require("./router/payment")
-const booksRouter = require("./router/books")
+const productsRouter = require("./router/products")
 
 //INSTANCIA
 const server = express();
@@ -14,6 +14,6 @@ server.use(cors());
 
 //ROUTERS
 server.use("/payment", paymentRouter)
-server.use("/books", booksRouter)
+server.use("/products", productsRouter)
 
 module.exports = server;
