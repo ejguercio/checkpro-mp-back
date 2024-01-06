@@ -16,9 +16,9 @@ router.post("/create-order", (req, res) => {
             }
         ],
         back_urls: {
-            "success": `${URL_BASE_MAIN}feedback`,
-            "failure": `${URL_BASE_MAIN}feedback`,
-            "pending": `${URL_BASE_MAIN}feedback`
+            "success": `${URL_BASE_MAIN}payment/feedback`,
+            "failure": `${URL_BASE_MAIN}payment/feedback`,
+            "pending": `${URL_BASE_MAIN}payment/feedback`
         },
         auto_return: "approved",
     };
