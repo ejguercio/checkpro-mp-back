@@ -40,15 +40,18 @@ router.post("/create-order", (req, res) => {
             "failure": `${URL_BASE_MAIN}payment/feedback`,
             "pending": `${URL_BASE_MAIN}payment/feedback`
         },
+        notification_url: `${URL_BASE_MAIN}payment/webhook`,
         auto_return: "approved",
         payment_methods: {
             excluded_payment_methods: [
                 {
-                    id: "visa" //excluye tarjetas de credito VISA
+                    id: "visa" //Excluye pago con tarjeta credito Visa
                 }
             ],
-            installments: 6 //permite pagar HASTA 6 cuotas
+            excluded_payment_types: [],
+            installments: 6, // Permite hasta 6 cuotas
         },
+        external_reference: "jguercio@live.com.ar",
     };
 
     mercadopago.preferences
@@ -60,13 +63,18 @@ router.post("/create-order", (req, res) => {
 })
 
 router.get("/feedback", (req, res) => {
-    res.json({
-        Payment: req.query.payment_id,
-        Method: req.query.payment_method_id,
+    res.status(200).json({
+        PaymentId: req.query.payment_id,
+        Method: req.query.payment_type,
         ExternalReference: req.query.external_reference,
         MerchantOrder: req.query.merchant_order_id,
         Status: req.query.status,
     });
+})
+
+router.post("/webhook", (req, res) => {
+    console.log(req.query)
+    res.status(201).json({ message: "done" });
 })
 
 
