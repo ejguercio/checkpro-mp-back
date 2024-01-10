@@ -56,10 +56,8 @@ router.post("/create-order", (req, res) => {
 
     mercadopago.preferences
         .create(preference)
-        .then(function (response) {
-            res.status(200).json({ response });
-        })
-        .catch(function (error) { console.log(error) });
+        .then((response) => res.status(200).json(response))
+        .catch((error) => res.status(400).json({ error: error.message }));
 })
 
 router.get("/feedback", (req, res) => {
