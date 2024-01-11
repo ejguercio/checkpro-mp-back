@@ -14,27 +14,24 @@ router.post("/create-order", (req, res) => {
                 title: req.body.title,
                 description: req.body.description,
                 unit_price: Number(req.body.price),
+                currency_id: 'ARS',
                 quantity: Number(req.body.quantity),
             }
         ],
-        // payer: {
-        //     name: 'João',
-        //     surname: 'Silva',
-        //     email: 'user@email.com',
-        //     phone: {
-        //       area_code: '11',
-        //       number: '4444-4444'
-        //     },
-        //     identification: {
-        //       type: 'CPF',
-        //       number: '19119119100'
-        //     },
-        //     address: {
-        //       street_name: 'Street',
-        //       street_number: 123,
-        //       zip_code: '06233200'
-        //     }
-        //   },
+        payer: {
+            name: 'Lalo',
+            surname: 'Landa',
+            email: 'test_user_36961754@testuser.com',
+            phone: {
+                area_code: '0353',
+                number: 154115273
+            },
+            address: {
+                street_name: 'calle falsa',
+                street_number: 123,
+                zip_code: '5900'
+            }
+        },
         back_urls: {
             "success": `${URL_BASE_MAIN}payment/feedback`,
             "failure": `${URL_BASE_MAIN}payment/feedback`,
@@ -72,7 +69,7 @@ router.get("/feedback", (req, res) => {
 
 router.post("/webhook", (req, res) => {
     console.log(req.query)
-    res.status(201).json({ message: "done" });
+    res.status(201).json({ message: "procesando pago..." });
 })
 
 
