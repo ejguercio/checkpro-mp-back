@@ -2,8 +2,7 @@ const { Router } = require("express");
 const mercadopago = require("../services/mercadoPago");
 require('dotenv').config()
 //const { URL_BASE_LOCAL } = process.env;
-const { URL_BASE_BACK } = process.env;
-const { URL_BASE_FRONT } = process.env;
+const { URL_BASE_MAIN } = process.env;
 
 const router = Router();
 
@@ -34,11 +33,11 @@ router.post("/create-order", (req, res) => {
             }
         },
         back_urls: {
-            "success": `${URL_BASE_FRONT}payment/feedback`,
-            "failure": `${URL_BASE_FRONT}payment/feedback`,
-            "pending": `${URL_BASE_FRONT}payment/feedback`
+            "success": `${URL_BASE_MAIN}payment/feedback`,
+            "failure": `${URL_BASE_MAIN}payment/feedback`,
+            "pending": `${URL_BASE_MAIN}payment/feedback`
         },
-        notification_url: `${URL_BASE_BACK}payment/webhook`,
+        notification_url: `${URL_BASE_MAIN}payment/webhook`,
         auto_return: "approved",
         payment_methods: {
             excluded_payment_methods: [
@@ -59,14 +58,13 @@ router.post("/create-order", (req, res) => {
 })
 
 router.get("/feedback", (req, res) => {
-    console.log({
+    ({
         PaymentId: req.query.payment_id,
         Method: req.query.payment_type,
         ExternalReference: req.query.external_reference,
         MerchantOrder: req.query.merchant_order_id,
         Status: req.query.status,
     });
-    res.status(200).redirect("https://checkpro-mp-front-3vvz.vercel.app/")
 })
 
 router.post("/webhook", (req, res) => {
